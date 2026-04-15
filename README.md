@@ -96,7 +96,7 @@ insecure option is only viable for lab environments.
 
 ## Responsible Disclosure
 
-* Vulnerability identified during authorized security testing
+* Vulnerability identified during a security testing
 * Reported to the affected organization
 * Successfully mitigated via WAF implementation
 
