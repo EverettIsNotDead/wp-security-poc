@@ -1,2 +1,39 @@
-# wp-security-poc
-Automated Bash script to verify WordPress XML-RPC system.multicall vulnerabilities. Designed for responsible disclosure processes to demonstrate bypasses of traditional rate-limiting.
+# WordPress XML-RPC Multicall Audit Tool (PoC)
+
+![Bash](https://img.shields.io/badge/Language-Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)
+![Security](https://img.shields.io/badge/Focus-Responsible%20Disclosure-red?style=for-the-badge)
+
+This repository contains a **Proof-of-Concept (PoC)** script developed during an independent security research. It demonstrates how the `system.multicall` method in WordPress XML-RPC can be leveraged to bypass traditional rate-limiting and perform large-scale authentication testing.
+
+## Case Study: From Discovery to Mitigation
+
+During a security audit of a corporate infrastructure (Smart City & Security Technologies sector), I discovered that the XML-RPC interface was fully exposed and supported multicall methods.
+
+### 1. The Vulnerability
+The `system.multicall` method allows multiple XML-RPC requests to be wrapped into a single HTTP POST request. This effectively bypasses standard login attempt limits, as hundreds of credentials can be tested in a single connection.
+
+### 2. Responsible Disclosure
+I followed the **Responsible Disclosure** principles:
+- **Identification:** Confirmed the lack of rate-limiting using this Bash script.
+- **Reporting:** Submitted a detailed technical report to the organization's management, highlighting the risk of brute-force and resource exhaustion.
+- **Verification:** Monitored the endpoint for security improvements.
+
+### 3. The Result (Successful Hardening)
+Following the report, the organization implemented an **OpenResty-based WAF (Web Application Firewall)** layer. 
+- **Before:** XML-RPC was accessible with no restrictions.
+- **After:** Requests are now intercepted by a JavaScript challenge and WAF filtering, effectively closing the attack vector.
+
+---
+
+## Technical Features of the Script
+
+- **Efficient Batching:** Uses `system.multicall` to bundle requests, reducing network overhead.
+- **Double Verification:** When a potential match is found in a batch, it performs a `single_check` to confirm the exact credential.
+- **Stealth & Stability:** Includes configurable delays to prevent server-side DoS during authorized testing.
+- **Logging:** Detailed logging of requests and responses for audit trails.
+
+## Usage (For Educational Purposes Only)
+
+```bash
+chmod +x audit.sh
+./audit.sh
