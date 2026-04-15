@@ -46,32 +46,63 @@ Content-Type: text/xml
 
 ## Usage
 
-```bash
-chmod +x audit.sh
+### CLI Mode (Recommended)
 
+```bash
 ./audit.sh \
-  --target http://example.com/xmlrpc.php \
+  --target https://example.com/xmlrpc.php \
   --user admin \
-  --wordlist passwords.txt
+  --wordlist passwords.txt \
+  --batch 50 \
+  --delay 1 \
+  --timeout 10
 ```
+
+### Interactive Mode
+
+```bash
+./audit.sh
+```
+
+The script will prompt for:
+
+* Target XML-RPC endpoint
+* Username
+* Password wordlist
+* Batch size
+
+---
+
+## Options
+
+| Flag       | Description              |
+| ---------- | ------------------------ |
+| --target   | XML-RPC endpoint         |
+| --user     | Target username          |
+| --wordlist | Password list            |
+| --batch    | Batch size (default: 50) |
+| --delay    | Delay between batches    |
+| --timeout  | Request timeout          |
+| --insecure | Disable SSL verification |
 
 ---
 
 ## Expected Output
 
 ```
-[+] Valid credentials found: admin:password123
+[SUCCESS] Valid Credential: admin:password123
 ```
 
 ---
 
 ## Features
 
-* Efficient batching of authentication attempts
-* Reduced network overhead via multicall
-* Verification step to eliminate false positives
-* Configurable delays for controlled testing
-* Logging support for audit trails
+* Efficient batching via `system.multicall`
+* Reduced network overhead
+* Verification step to avoid false positives
+* Configurable delay for controlled testing
+* Logging support (`security_audit_log.txt`)
+* CLI + Interactive usage support
 
 ---
 
@@ -97,6 +128,14 @@ chmod +x audit.sh
 * High volume of requests to `/xmlrpc.php`
 * Large XML payloads containing multiple authentication attempts
 * Repeated login attempts within a single HTTP request
+
+---
+
+## Limitations
+
+* Requires XML-RPC to be enabled
+* May be blocked by WAF or rate limiting
+* Response detection is heuristic-based
 
 ---
 
