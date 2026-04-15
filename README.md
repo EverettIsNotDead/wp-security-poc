@@ -22,20 +22,6 @@ Many systems apply rate-limiting per HTTP request rather than per authentication
 
 ---
 
-## Example Request
-
-```http
-POST /xmlrpc.php HTTP/1.1
-Content-Type: text/xml
-
-<methodCall>
-  <methodName>system.multicall</methodName>
-  ...
-</methodCall>
-```
-
----
-
 ## How It Works
 
 1. Sends batched authentication attempts using `system.multicall`
