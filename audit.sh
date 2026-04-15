@@ -1,6 +1,6 @@
 #!/bin/bash
 # -----------------------------------------------------------------------------
-# WordPress XML-RPC Multicall Security Auditor (Improved PoC)
+# WordPress XML-RPC Multicall Security Auditor
 # -----------------------------------------------------------------------------
 
 set -e
@@ -67,7 +67,7 @@ TOTAL_PASSWORDS=$(wc -l < "$PASS_FILE")
 COUNTER=0
 
 # -------------------------
-# XML escape (important!)
+# XML escape
 # -------------------------
 xml_escape() {
     echo "$1" | sed -e 's/&/\&amp;/g' \
