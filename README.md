@@ -71,6 +71,8 @@ The script will prompt for:
 | --timeout  | Request timeout          |
 | --insecure | Disable SSL verification |
 
+insecure option is only viable for lab environments.
+
 ---
 
 ## Expected Output
